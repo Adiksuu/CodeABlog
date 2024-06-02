@@ -1,0 +1,36 @@
+{
+  "expo": {
+    "name": "CodeABlog",
+    "slug": "code-a-blog",
+    "version": "1.0.6",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/banner.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/banner.png",
+        "backgroundColor": "#ffffff"
+      },
+      "package": "pl.code.adiksuu"
+    },
+    "web": {
+      "favicon": "./assets/icon.png"
+    },
+    "plugins": [
+      "expo-font"
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "8217fe95-108c-4c3e-bda1-ce34807b7423"
+      }
+    }
+  }
+}
