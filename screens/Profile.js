@@ -1,13 +1,31 @@
-import { View, Text, ScrollView, StyleSheet, TouchableOpacity } from 'react-native'
-import React, { useEffect, useState } from 'react'
+import { View, Text, ScrollView, StyleSheet, Animated } from 'react-native'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import HeaderImage from '../components/HeaderImage'
 import { auth } from '../database';
 import LoginForm from '../components/LoginForm';
 import LoggedView from '../components/LoggedView';
+import { useFocusEffect } from '@react-navigation/native';
 
 export default function Profile() {
 
   const [alreadyLogged, setAlreadyLogged] = useState(false);
+
+  const fadeAnim = useRef(new Animated.Value(0.3)).current;
+
+    useFocusEffect(
+        useCallback(() => {
+            fadeAnim.setValue(0.3);
+            Animated.timing(
+                fadeAnim,
+                {
+                    toValue: 1,
+                    duration: 300,
+                    useNativeDriver: true
+                }
+            ).start();
+            return () => fadeAnim.setValue(0.3);
+        }, [fadeAnim])
+    );
 
   useEffect(() => {
     if (alreadyLogged) return;
@@ -26,9 +44,9 @@ export default function Profile() {
   return (
     <View style={{ flex: 1 }}>
       <HeaderImage />
-      <ScrollView style={styles.container}>
+      <Animated.ScrollView style={{...styles.container, opacity: fadeAnim}}>
         {alreadyLogged ? <LoggedView /> : <UserLogin />}
-      </ScrollView>
+      </Animated.ScrollView>
     </View>
   )
 }

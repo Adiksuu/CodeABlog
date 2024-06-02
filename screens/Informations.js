@@ -1,15 +1,33 @@
-import { View, Text, StyleSheet, ScrollView } from 'react-native'
-import React from 'react'
+import { View, Text, StyleSheet, ScrollView, Animated } from 'react-native'
+import React, { useCallback, useRef } from 'react'
 import HeaderImage from '../components/HeaderImage'
 import Socials from '../components/Socials'
 import Logo from '../components/Logo'
 import SponsorButton from '../components/SponsorButton'
+import { useFocusEffect } from '@react-navigation/native'
 
 export default function Informations() {
+    const fadeAnim = useRef(new Animated.Value(0.3)).current;
+
+    useFocusEffect(
+        useCallback(() => {
+            fadeAnim.setValue(0.3);
+            Animated.timing(
+                fadeAnim,
+                {
+                    toValue: 1,
+                    duration: 300,
+                    useNativeDriver: true
+                }
+            ).start();
+            return () => fadeAnim.setValue(0.3);
+        }, [fadeAnim])
+    );
+
     return (
         <View>
             <HeaderImage />
-            <ScrollView style={styles.container}>
+            <Animated.ScrollView style={{...styles.container, opacity: fadeAnim}}>
                 <Logo />
                 <View>
                     <Text style={styles.authorText}>CodeAdiksuu</Text>
@@ -22,7 +40,7 @@ export default function Informations() {
                 <View>
                     <Socials />
                 </View>
-            </ScrollView>
+            </Animated.ScrollView>
         </View>
     )
 }

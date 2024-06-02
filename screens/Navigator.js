@@ -13,19 +13,19 @@ const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
 const options = {
-  tabBarShowLabel: false,
-  headerShown: false,
-  tabBarStyle: {
-    position: "absolute",
-    bottom: 20,
-    right: 20,
-    left: 20,
-    elevation: 0,
-    height: 80,
-    backgroundColor: "#fff",
-    borderRadius: 15,
-    borderTopWidth: 0,
-  }
+    tabBarShowLabel: false,
+    headerShown: false,
+    tabBarStyle: {
+        position: "absolute",
+        bottom: 20,
+        right: 20,
+        left: 20,
+        elevation: 0,
+        height: 80,
+        backgroundColor: "#fff",
+        borderRadius: 15,
+        borderTopWidth: 0,
+    }
 };
 
 export default function Navigator() {
@@ -34,7 +34,10 @@ export default function Navigator() {
             <Stack.Navigator screenOptions={{ headerShown: false }}>
                 <Stack.Screen name={initialRoute.name} component={initialRoute.component} />
                 {Object.entries(additionalScreens).map(([name, component]) => (
-                    <Stack.Screen key={name} name={name} component={component} />
+                    <Stack.Screen key={name} name={name} component={component} options={{
+                        animationTypeForReplace: 'push',
+                        animation: 'slide_from_right'
+                    }} />
                 ))}
             </Stack.Navigator>
         );
