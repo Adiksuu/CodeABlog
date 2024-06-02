@@ -35,17 +35,11 @@ export default function Profile() {
     }, 1000);
   }, []);
 
-  function UserLogin() {
-    return (
-      <LoginForm />
-    )
-  }
-
   return (
     <View style={{ flex: 1 }}>
       <HeaderImage />
       <Animated.ScrollView style={{...styles.container, opacity: fadeAnim}}>
-        {alreadyLogged ? <LoggedView /> : <UserLogin />}
+        {alreadyLogged ? <LoggedView /> : <LoginForm />}
       </Animated.ScrollView>
     </View>
   )
@@ -54,6 +48,6 @@ export default function Profile() {
 const styles = StyleSheet.create({
   container: {
     paddingHorizontal: 20,
-    marginBottom: 240
+    marginBottom: 120
   },
 })
