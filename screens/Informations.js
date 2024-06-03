@@ -35,7 +35,7 @@ export default function Informations() {
                 </View>
                 <SponsorButton />
                 <View style={styles.description}>
-                    <Text style={styles.descriptionText}>I specialize in web development using various technologies. For example, this website was created with React.js, a popular JavaScript library for building user interfaces known for its component-based architecture and virtual DOM. My name is Kacper, better known online as CodeAdiksuu. I come from Poland and create websites using technologies like React.js and Node.js. If you need a website and lack the skills to create one, feel free to reach out, and we can work something out :D</Text>
+                    <Text style={styles.descriptionText}>I specialize in web development using various technologies. For example, this app was created with React.js (Native), a popular JavaScript library for building user interfaces known for its component-based architecture and virtual DOM. My name is Kacper, better known online as CodeAdiksuu. I come from Poland and create websites using technologies like React.js and Node.js. If you need a website and lack the skills to create one, feel free to reach out, and we can work something out :D</Text>
                 </View>
                 <View>
                     <Socials />

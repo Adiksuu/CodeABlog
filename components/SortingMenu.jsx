@@ -1,8 +1,19 @@
 import { View, StyleSheet } from 'react-native'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Picker } from '@react-native-picker/picker';
+import { auth } from '../database';
 
 export default function SortingMenu({ sortOption, setSortOption }) {
+    const [alreadyLogged, setAlreadyLogged] = useState(false);
+
+    useEffect(() => {
+        if (alreadyLogged) return;
+
+        setInterval(() => {
+            setAlreadyLogged(auth.currentUser ? true : false);
+        }, 1000);
+    }, []);
+
     return (
         <View style={styles.pickerContainer}>
             <Picker
@@ -12,6 +23,7 @@ export default function SortingMenu({ sortOption, setSortOption }) {
             >
                 <Picker.Item label="A-Z" value="abc" />
                 <Picker.Item label="Modification date" value="updated" />
+                {alreadyLogged ? <Picker.Item label="Most liked" value="liked" /> : null}
             </Picker>
         </View>
     )
