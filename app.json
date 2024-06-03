@@ -2,9 +2,9 @@
   "expo": {
     "name": "CodeABlog",
     "slug": "code-a-blog",
-    "version": "1.0.6",
+    "version": "1.0.7.2",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/ico.png",
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/banner.png",
@@ -22,7 +22,7 @@
       "package": "pl.code.adiksuu"
     },
     "web": {
-      "favicon": "./assets/icon.png"
+      "favicon": "./assets/ico.png"
     },
     "plugins": [
       "expo-font"
