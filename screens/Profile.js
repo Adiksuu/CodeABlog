@@ -54,7 +54,7 @@ export default function Profile() {
     <View style={{ flex: 1, backgroundColor: darkmode ? black : white }}>
       <HeaderImage />
       <Animated.ScrollView style={{...styles.container, opacity: fadeAnim}}>
-        {alreadyLogged ? <LoggedView darkmode={darkmode} /> : <LoginForm darkmode={darkmode} />}
+        {alreadyLogged ? <LoggedView darkmode={darkmode} setDarkmode={setDarkmode} /> : <LoginForm darkmode={darkmode} />}
       </Animated.ScrollView>
     </View>
   )
