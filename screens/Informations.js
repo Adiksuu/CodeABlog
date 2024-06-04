@@ -65,6 +65,7 @@ const styles = StyleSheet.create({
         backgroundColor: "#fff",
         padding: 16,
         fontFamily: 'Poppins_400Regular',
+        borderRadius: 4
     },
     statusIndicator: {
         width: "100%",
