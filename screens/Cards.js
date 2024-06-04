@@ -12,7 +12,10 @@ export default function Cards({ route, navigation }) {
     const [darkmode, setDarkmode] = useState(false)
     useEffect(() => {
         setInterval(async () => {
-            if (!auth.currentUser) return
+            if (!auth.currentUser) {
+                setDarkmode(false)
+                return
+            }
 
             const snapshot = await database.ref(`users/${auth.currentUser.uid}/`).once('value')
             setDarkmode(snapshot.val().darkmode)

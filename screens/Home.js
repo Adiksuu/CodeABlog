@@ -39,7 +39,10 @@ export default function Home() {
     }, [])
 
     useEffect(() => {
-        if (alreadyLogged) return;
+        if (!auth.currentUser) {
+            setDarkmode(false)
+            return
+        }
 
         setInterval(() => {
             setAlreadyLogged(auth.currentUser ? true : false);
