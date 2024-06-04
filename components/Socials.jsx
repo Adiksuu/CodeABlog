@@ -1,8 +1,9 @@
 import { View, TouchableOpacity, StyleSheet, Linking, Text } from 'react-native'
 import { FontAwesome6 } from '@expo/vector-icons';
 import React from 'react'
+import { black, pureBlack, pureWhite, white } from '../utility/colors';
 
-export default function Socials() {
+export default function Socials({ darkmode }) {
     const socials = [
         {
             icon: 'github',
@@ -28,15 +29,15 @@ export default function Socials() {
 
     function Social({ social }) {
         return (
-            <TouchableOpacity style={styles.iconCircle} activeOpacity={0.7} onPress={() => handleOpenLink(social.link)}>
-                <FontAwesome6 name={social.icon} size={16} color={"#0f0f0f"} />
+            <TouchableOpacity style={{...styles.iconCircle, backgroundColor: darkmode ? pureBlack : pureWhite}} activeOpacity={0.7} onPress={() => handleOpenLink(social.link)}>
+                <FontAwesome6 name={social.icon} size={16} color={darkmode ? white : black} />
             </TouchableOpacity>
         )
     }
 
     return (
         <>
-            <Text style={styles.welcomeText}>Check my Socials</Text>
+            <Text style={{...styles.welcomeText, color: darkmode ? pureWhite : pureBlack}}>Check my Socials</Text>
             <Text style={styles.welcomeDescriptionText}>If you are interested in my activities, see also my social media</Text>
             <View style={styles.container}>
                 {socials.map((social, i) => <Social social={social} key={i} />)}
@@ -54,7 +55,8 @@ const styles = StyleSheet.create({
         fontSize: 16,
         marginTop: 10,
         fontFamily: 'Poppins_400Regular',
-        textAlign: "left"
+        textAlign: "left",
+        color: '#7d7d7d'
     },
     container: {
         flexDirection: "column",

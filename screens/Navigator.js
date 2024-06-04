@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -8,6 +8,7 @@ import Informations from './Informations';
 import { Entypo, FontAwesome } from '@expo/vector-icons/build/Icons';
 import TabIcon from '../components/TabIcon';
 import Profile from './Profile';
+import { black, pureBlack, pureWhite, white } from '../utility/colors';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -22,7 +23,6 @@ const options = {
         left: 20,
         elevation: 0,
         height: 80,
-        backgroundColor: "#fff",
         borderRadius: 15,
         borderTopWidth: 0,
     }
@@ -36,7 +36,7 @@ export default function Navigator() {
                 {Object.entries(additionalScreens).map(([name, component]) => (
                     <Stack.Screen key={name} name={name} component={component} options={{
                         animationTypeForReplace: 'push',
-                        animation: 'slide_from_right'
+                        animation: 'slide_from_right',
                     }} />
                 ))}
             </Stack.Navigator>
@@ -61,9 +61,11 @@ export default function Navigator() {
         }
     ];
 
+    const [darkmode, setDarkmode] = useState(false)
+
     return (
         <NavigationContainer>
-            <Tab.Navigator screenOptions={options}>
+            <Tab.Navigator screenOptions={{...options, tabBarStyle: {...options.tabBarStyle, backgroundColor: darkmode ? pureBlack : pureWhite}}}>
                 {tabs.map(tab => (
                     <Tab.Screen
                         key={tab.name}

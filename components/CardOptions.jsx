@@ -2,8 +2,9 @@ import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { AntDesign, FontAwesome6 } from '@expo/vector-icons'
 import { auth, database } from '../database'
+import { black, white } from '../utility/colors'
 
-export default function CardOptions({ item }) {
+export default function CardOptions({ item, darkmode }) {
     const [cardLiked, setCardLiked] = useState(false)
     const [cardLikes, setCardLikes] = useState(0)
 
@@ -46,13 +47,13 @@ export default function CardOptions({ item }) {
 
     return (
         <View style={styles.options}>
-            <TouchableOpacity style={styles.optionsButton} activeOpacity={0.7} onPress={() => handleLikeCard()}>
-                <AntDesign name={cardLiked ? 'like1' : 'like2'} size={20} color="black" />
-                <Text style={styles.optionsText}>{cardLikes} Likes</Text>
+            <TouchableOpacity style={{...styles.optionsButton, backgroundColor: darkmode ? black : white}} activeOpacity={0.7} onPress={() => handleLikeCard()}>
+                <AntDesign name={cardLiked ? 'like1' : 'like2'} size={20} color={darkmode ? white : black} />
+                <Text style={{...styles.optionsText, color: darkmode ? white : black}}>{cardLikes} Likes</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.optionsButton} activeOpacity={0.7}>
-                <FontAwesome6 name="question" size={16} color="black" />
-                <Text style={styles.optionsText}>Soon...</Text>
+            <TouchableOpacity style={{...styles.optionsButton, backgroundColor: darkmode ? black : white}} activeOpacity={0.7}>
+                <FontAwesome6 name="question" size={16} color={darkmode ? white : black} />
+                <Text style={{...styles.optionsText, color: darkmode ? white : black}}>Soon...</Text>
             </TouchableOpacity>
         </View>
     )

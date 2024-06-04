@@ -1,13 +1,14 @@
 import { View, TextInput, StyleSheet, TouchableOpacity } from 'react-native'
 import { FontAwesome5 } from '@expo/vector-icons';
 import React from 'react'
+import { pureBlack, pureWhite } from '../utility/colors';
 
-export default function SearchingMenu({ searchCard, setSearchCard }) {
+export default function SearchingMenu({ searchCard, setSearchCard, darkmode }) {
     return (
         <View style={styles.container}>
-            <TextInput placeholder='Search project...' value={searchCard} onChangeText={(e) => setSearchCard(e)} style={styles.input}  />
-            <TouchableOpacity style={styles.iconCircle} activeOpacity={1}>
-                <FontAwesome5 name="search" size={16} color="#666" />
+            <TextInput placeholder='Search project...' value={searchCard} placeholderTextColor={darkmode ? pureWhite : pureBlack} onChangeText={(e) => setSearchCard(e)} style={{...styles.input, backgroundColor: darkmode ? pureBlack : pureWhite, color: darkmode ? pureWhite : pureBlack }}  />
+            <TouchableOpacity style={{...styles.iconCircle, backgroundColor: darkmode ? pureBlack : pureWhite}} activeOpacity={1}>
+                <FontAwesome5 name="search" size={16} color={darkmode ? pureWhite : pureBlack} />
             </TouchableOpacity>
         </View>
     )
@@ -25,17 +26,15 @@ const styles = StyleSheet.create({
         flex: 1,
         width: "100%",
         height: 50,
-        backgroundColor: '#fff',
         borderTopRightRadius: 0,
         borderBottomRightRadius: 0,
         borderTopLeftRadius: 8,
         borderBottomLeftRadius: 8,
         paddingHorizontal: 16,
         fontFamily: 'Poppins_500Medium',
-        color: "#0f0f0f"
+        
     },
     iconCircle: {
-        backgroundColor: '#fff',
         borderTopRightRadius: 8,
         borderBottomRightRadius: 8,
         borderTopLeftRadius: 0,

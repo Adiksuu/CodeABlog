@@ -4,7 +4,7 @@ import Card from './Card';
 import SortingMenu from './SortingMenu';
 import SearchingMenu from './SearchingMenu';
 
-export default function CardList() {
+export default function CardList({ darkmode }) {
     const [sortOption, setSortOption] = useState('abc');
     const [searchCard, setSearchCard] = useState('')
 
@@ -26,10 +26,10 @@ export default function CardList() {
 
     return (
         <View style={styles.container}>
-            <SearchingMenu searchCard={searchCard} setSearchCard={setSearchCard} />
-            <SortingMenu sortOption={sortOption} setSortOption={setSortOption} />
+            <SearchingMenu searchCard={searchCard} setSearchCard={setSearchCard} darkmode={darkmode} />
+            <SortingMenu sortOption={sortOption} setSortOption={setSortOption} darkmode={darkmode} />
             {sortedData.filter(item => item.title.toLocaleLowerCase().includes(searchCard.toLowerCase().trim())).map((item, i) => (
-                <Card item={item} key={i} />
+                <Card item={item} key={i} darkmode={darkmode} />
             ))}
         </View>
     );

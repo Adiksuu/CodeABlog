@@ -1,10 +1,11 @@
 import { View, Text, StyleSheet, ScrollView, Animated } from 'react-native'
-import React, { useCallback, useRef } from 'react'
+import React, { useCallback, useRef, useState } from 'react'
 import HeaderImage from '../components/HeaderImage'
 import Socials from '../components/Socials'
 import Logo from '../components/Logo'
 import SponsorButton from '../components/SponsorButton'
 import { useFocusEffect } from '@react-navigation/native'
+import { black, pureBlack, pureWhite, white } from '../utility/colors'
 
 export default function Informations() {
     const fadeAnim = useRef(new Animated.Value(0.3)).current;
@@ -24,21 +25,23 @@ export default function Informations() {
         }, [fadeAnim])
     );
 
+    const [darkmode, setDarkmode] = useState(false)
+
     return (
-        <View>
+        <View style={{ backgroundColor: darkmode ? black : white }}>
             <HeaderImage />
             <Animated.ScrollView style={{...styles.container, opacity: fadeAnim}}>
                 <Logo />
                 <View>
-                    <Text style={styles.authorText}>CodeAdiksuu</Text>
+                    <Text style={{...styles.authorText, color: darkmode ? pureWhite : pureBlack }}>CodeAdiksuu</Text>
                     <View style={[styles.statusIndicator]} />
                 </View>
-                <SponsorButton />
+                <SponsorButton darkmode={darkmode} />
                 <View style={styles.description}>
-                    <Text style={styles.descriptionText}>I specialize in web development using various technologies. For example, this app was created with React.js (Native), a popular JavaScript library for building user interfaces known for its component-based architecture and virtual DOM. My name is Kacper, better known online as CodeAdiksuu. I come from Poland and create websites using technologies like React.js and Node.js. If you need a website and lack the skills to create one, feel free to reach out, and we can work something out :D</Text>
+                    <Text style={{...styles.descriptionText, backgroundColor: darkmode ? pureBlack : pureWhite, color: darkmode ? white : black }}>I specialize in web development using various technologies. For example, this app was created with React.js (Native), a popular JavaScript library for building user interfaces known for its component-based architecture and virtual DOM. My name is Kacper, better known online as CodeAdiksuu. I come from Poland and create websites using technologies like React.js and Node.js. If you need a website and lack the skills to create one, feel free to reach out, and we can work something out :D</Text>
                 </View>
                 <View>
-                    <Socials />
+                    <Socials darkmode={darkmode} />
                 </View>
             </Animated.ScrollView>
         </View>
@@ -61,8 +64,6 @@ const styles = StyleSheet.create({
     },
     descriptionText: {
         fontSize: 16,
-        color: "#0f0f0f",
-        backgroundColor: "#fff",
         padding: 16,
         fontFamily: 'Poppins_400Regular',
         borderRadius: 4

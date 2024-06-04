@@ -1,17 +1,20 @@
 import { View, StyleSheet, ScrollView } from 'react-native'
-import React from 'react'
+import React, { useState } from 'react'
 import Header from '../components/Header';
 import CardDetails from '../components/CardDetails';
+import { black, white } from '../utility/colors';
 
 
 export default function Cards({ route, navigation }) {
     const { card } = route.params;
 
+    const [darkmode, setDarkmode] = useState(false)
+
     return (
-        <View>
-            <Header navigation={navigation} />
+        <View style={{backgroundColor: darkmode ? black : white}}>
+            <Header navigation={navigation} darkmode={darkmode} />
             <ScrollView style={styles.container}>
-                <CardDetails card={card} />
+                <CardDetails card={card} darkmode={darkmode} />
             </ScrollView>
         </View>
     )

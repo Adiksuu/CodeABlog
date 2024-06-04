@@ -5,6 +5,7 @@ import { auth } from '../database';
 import LoginForm from '../components/LoginForm';
 import LoggedView from '../components/LoggedView';
 import { useFocusEffect } from '@react-navigation/native';
+import { black, white } from '../utility/colors';
 
 export default function Profile() {
 
@@ -35,11 +36,13 @@ export default function Profile() {
     }, 1000);
   }, []);
 
+  const [darkmode, setDarkmode] = useState(false)
+
   return (
-    <View style={{ flex: 1 }}>
+    <View style={{ flex: 1, backgroundColor: darkmode ? black : white }}>
       <HeaderImage />
       <Animated.ScrollView style={{...styles.container, opacity: fadeAnim}}>
-        {alreadyLogged ? <LoggedView /> : <LoginForm />}
+        {alreadyLogged ? <LoggedView darkmode={darkmode} /> : <LoginForm darkmode={darkmode} />}
       </Animated.ScrollView>
     </View>
   )

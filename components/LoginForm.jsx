@@ -1,8 +1,9 @@
 import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import React, { useState } from 'react'
 import { auth } from '../database'
+import { black, pureBlack, pureWhite, white } from '../utility/colors'
 
-export default function LoginForm() {
+export default function LoginForm({ darkmode }) {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [signIn, setSignIn] = useState(true)
@@ -25,21 +26,21 @@ export default function LoginForm() {
     return signIn ? (
         <View>
             <View style={styles.textContainer}>
-                <Text style={styles.welcomeText}>You need to login</Text>
+                <Text style={{ ...styles.welcomeText, color: darkmode ? pureWhite : pureBlack }}>You need to login</Text>
                 <Text style={styles.descriptionText}>To view your profile you need to be logged in</Text>
             </View>
-            <View style={styles.form}>
+            <View style={{ ...styles.form, backgroundColor: darkmode ? pureBlack : pureWhite }}>
                 <View style={styles.inputView}>
-                    <Text style={styles.inputText}>Your email:</Text>
-                    <TextInput placeholder='Email' value={email} onChangeText={(e) => { setEmail(e) }} style={styles.input} />
+                    <Text style={{ ...styles.inputText, color: darkmode ? pureWhite : pureBlack }}>Your email:</Text>
+                    <TextInput placeholder='Email' placeholderTextColor={darkmode ? pureWhite : pureBlack} value={email} onChangeText={(e) => { setEmail(e) }} style={{ ...styles.input, backgroundColor: darkmode ? black : white, color: darkmode ? pureWhite : pureBlack }} />
                 </View>
                 <View style={styles.inputView}>
-                    <Text style={styles.inputText}>Your password:</Text>
-                    <TextInput placeholder='Password' secureTextEntry value={password} onChangeText={(e) => { setPassword(e) }} style={styles.input} />
+                    <Text style={{ ...styles.inputText, color: darkmode ? pureWhite : pureBlack }}>Your password:</Text>
+                    <TextInput placeholder='Password' placeholderTextColor={darkmode ? pureWhite : pureBlack} secureTextEntry value={password} onChangeText={(e) => { setPassword(e) }} style={{ ...styles.input, backgroundColor: darkmode ? black : white, color: darkmode ? pureWhite : pureBlack }} />
                 </View>
                 <View style={styles.inputView}>
-                    <TouchableOpacity style={styles.inputButton} activeOpacity={0.7} onPress={() => handleLogin()}>
-                        <Text style={styles.inputButtonText}>Login</Text>
+                    <TouchableOpacity style={{ ...styles.inputButton, backgroundColor: darkmode ? black : white }} activeOpacity={0.7} onPress={() => handleLogin()}>
+                        <Text style={{ ...styles.inputButtonText, color: darkmode ? pureWhite : pureBlack }}>Login</Text>
                     </TouchableOpacity>
                 </View>
                 <View style={styles.inputView}>
@@ -51,21 +52,21 @@ export default function LoginForm() {
         </View>
     ) : <View>
         <View style={styles.textContainer}>
-            <Text style={styles.welcomeText}>You need to create an account</Text>
+            <Text style={{ ...styles.welcomeText, color: darkmode ? pureWhite : pureBlack }}>You need to create an account</Text>
             <Text style={styles.descriptionText}>To view your profile you need create account</Text>
         </View>
-        <View style={styles.form}>
+        <View style={{ ...styles.form, backgroundColor: darkmode ? pureBlack : pureWhite }}>
             <View style={styles.inputView}>
-                <Text style={styles.inputText}>Your email:</Text>
-                <TextInput placeholder='Email' value={email} onChangeText={(e) => { setEmail(e) }} style={styles.input} />
+                <Text style={{ ...styles.inputText, color: darkmode ? pureWhite : pureBlack }}>Your email:</Text>
+                <TextInput placeholder='Email' placeholderTextColor={darkmode ? pureWhite : pureBlack} value={email} onChangeText={(e) => { setEmail(e) }} style={{ ...styles.input, backgroundColor: darkmode ? black : white, color: darkmode ? pureWhite : pureBlack }} />
             </View>
             <View style={styles.inputView}>
-                <Text style={styles.inputText}>Your password:</Text>
-                <TextInput placeholder='Password' secureTextEntry value={password} onChangeText={(e) => { setPassword(e) }} style={styles.input} />
+                <Text style={{ ...styles.inputText, color: darkmode ? pureWhite : pureBlack }}>Your password:</Text>
+                <TextInput placeholder='Password' placeholderTextColor={darkmode ? pureWhite : pureBlack} secureTextEntry value={password} onChangeText={(e) => { setPassword(e) }} style={{ ...styles.input, backgroundColor: darkmode ? black : white, color: darkmode ? pureWhite : pureBlack }} />
             </View>
             <View style={styles.inputView}>
-                <TouchableOpacity style={styles.inputButton} activeOpacity={0.7} onPress={() => handleSignUp()}>
-                    <Text style={styles.inputButtonText}>Create Account</Text>
+                <TouchableOpacity style={{ ...styles.inputButton, backgroundColor: darkmode ? black : white }} activeOpacity={0.7} onPress={() => handleSignUp()}>
+                    <Text style={{ ...styles.inputButtonText, color: darkmode ? pureWhite : pureBlack }}>Create Account</Text>
                 </TouchableOpacity>
             </View>
             <View style={styles.inputView}>
@@ -90,10 +91,10 @@ const styles = StyleSheet.create({
         fontSize: 16,
         marginTop: 10,
         fontFamily: 'Poppins_400Regular',
-        textAlign: "left"
+        textAlign: "left",
+        color: '#7d7d7d'
     },
     form: {
-        backgroundColor: '#fff',
         padding: 16,
         borderRadius: 8,
         flexDirection: 'column',
@@ -103,21 +104,17 @@ const styles = StyleSheet.create({
         gap: 4
     },
     inputText: {
-        color: '#0f0f0f',
         fontFamily: 'Poppins_500Medium'
     },
     input: {
-        backgroundColor: '#f3f3f3',
         borderRadius: 4,
         paddingHorizontal: 12,
         paddingVertical: 4,
-        color: '#0f0f0f',
         fontFamily: 'Poppins_400Regular',
         alignItems: 'center',
         justifyContent: 'center'
     },
     inputButton: {
-        backgroundColor: '#f3f3f3',
         borderRadius: 4,
         padding: 8,
         textAlign: 'center',
@@ -125,7 +122,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     inputButtonText: {
-        color: '#0f0f0f',
         fontSize: 14,
         fontFamily: 'Nunito_600SemiBold'
     },
@@ -138,6 +134,7 @@ const styles = StyleSheet.create({
         color: '#0f0f0f',
         fontSize: 12,
         marginTop: 8,
-        fontFamily: 'Nunito_700Bold'
+        fontFamily: 'Nunito_700Bold',
+        color: '#7d7d7d'
     }
 })

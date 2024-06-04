@@ -4,8 +4,8 @@ import React from 'react';
 export default function TabIcon({ name, label, focused, iconComponent: Icon }) {
   return (
     <View style={styles.iconParent}>
-      <Icon name={name} size={22} color={focused ? "#0f0f0f" : "#bcbcbc"} />
-      <Text style={{ fontSize: 14, color: focused ? "#0f0f0f" : "#bcbcbc", fontFamily: 'Nunito_600SemiBold' }}>{label}</Text>
+      <Icon name={name} size={22} color={focused ? "#7d7d7d" : "#bcbcbc"} />
+      <Text style={{ fontSize: 14, color: focused ? "#7d7d7d" : "#bcbcbc", fontFamily: 'Nunito_600SemiBold' }}>{label}</Text>
     </View>
   );
 }

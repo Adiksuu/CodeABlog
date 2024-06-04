@@ -1,8 +1,9 @@
 import { View, Text, StyleSheet, TouchableOpacity, Linking } from 'react-native'
 import React from 'react'
 import { FontAwesome6 } from '@expo/vector-icons'
+import { black, pureBlack, pureWhite, white } from '../utility/colors';
 
-export default function CardDetails({ card }) {
+export default function CardDetails({ card, darkmode }) {
     const handleOpenLink = () => {
         Linking.openURL(card.description)
     };
@@ -10,20 +11,20 @@ export default function CardDetails({ card }) {
     return (
         <>
             <View style={styles.cardInfo}>
-                <Text style={styles.cardTitle}>{card.title}</Text>
+                <Text style={{...styles.cardTitle, color: darkmode ? pureWhite : pureBlack}}>{card.title}</Text>
                 <View style={[styles.statusIndicator, { backgroundColor: card.color }]} />
             </View>
             <View>
-                <Text style={styles.cardDescription}>{card.largeDescription}</Text>
+                <Text style={{...styles.cardDescription, backgroundColor: darkmode ? pureBlack : pureWhite, color: darkmode ? pureWhite : pureBlack}}>{card.largeDescription}</Text>
             </View>
             <View style={styles.cardLinks}>
-                <TouchableOpacity style={styles.iconCircle} activeOpacity={0.7} onPress={() => handleOpenLink(card.description)}>
-                    <FontAwesome6 name={"globe"} size={16} color={"#0f0f0f"} />
-                    <Text style={styles.linkName}>Check Project</Text>
+                <TouchableOpacity style={{...styles.iconCircle, backgroundColor: darkmode ? pureBlack : pureWhite}} activeOpacity={0.7} onPress={() => handleOpenLink(card.description)}>
+                    <FontAwesome6 name={"globe"} size={16} color={darkmode ? pureWhite : pureBlack} />
+                    <Text style={{...styles.linkName, color: darkmode ? pureWhite : pureBlack}}>Check Project</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.iconCircle} activeOpacity={0.7}>
-                    <FontAwesome6 name={"wrench"} size={16} color={"#0f0f0f"} />
-                    <Text style={styles.linkName}>Modified: {card.updated}</Text>
+                <TouchableOpacity style={{...styles.iconCircle, backgroundColor: darkmode ? pureBlack : pureWhite}} activeOpacity={0.7}>
+                    <FontAwesome6 name={"wrench"} size={16} color={darkmode ? pureWhite : pureBlack} />
+                    <Text style={{...styles.linkName, color: darkmode ? pureWhite : pureBlack}}>Modified: {card.updated}</Text>
                 </TouchableOpacity>
             </View>
         </>
