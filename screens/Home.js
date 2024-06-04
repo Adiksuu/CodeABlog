@@ -29,14 +29,20 @@ export default function Home() {
     const [darkmode, setDarkmode] = useState(false)
 
     useEffect(() => {
+        setInterval(async () => {
+            if (!auth.currentUser) return
+
+            const snapshot = await database.ref(`users/${auth.currentUser.uid}/`).once('value')
+            setDarkmode(snapshot.val().darkmode)
+
+        }, 1000);
+    }, [])
+
+    useEffect(() => {
         if (alreadyLogged) return;
 
         setInterval(() => {
             setAlreadyLogged(auth.currentUser ? true : false);
-            // if (!auth.currentUser) return
-            // const UID = auth.currentUser.uid
-            // database.ref(`users/${UID}/`).once('value')
-            // console.log(UID)
         }, 1000);
     }, []);
 

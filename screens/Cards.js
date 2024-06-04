@@ -1,14 +1,24 @@
 import { View, StyleSheet, ScrollView } from 'react-native'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Header from '../components/Header';
 import CardDetails from '../components/CardDetails';
 import { black, white } from '../utility/colors';
+import { auth, database } from '../database';
 
 
 export default function Cards({ route, navigation }) {
     const { card } = route.params;
 
     const [darkmode, setDarkmode] = useState(false)
+    useEffect(() => {
+        setInterval(async () => {
+            if (!auth.currentUser) return
+
+            const snapshot = await database.ref(`users/${auth.currentUser.uid}/`).once('value')
+            setDarkmode(snapshot.val().darkmode)
+
+        }, 1000);
+    }, [])
 
     return (
         <View style={{backgroundColor: darkmode ? black : white}}>

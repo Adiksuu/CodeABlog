@@ -1,7 +1,7 @@
 import { View, Text, ScrollView, StyleSheet, Animated } from 'react-native'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import HeaderImage from '../components/HeaderImage'
-import { auth } from '../database';
+import { auth, database } from '../database';
 import LoginForm from '../components/LoginForm';
 import LoggedView from '../components/LoggedView';
 import { useFocusEffect } from '@react-navigation/native';
@@ -37,6 +37,15 @@ export default function Profile() {
   }, []);
 
   const [darkmode, setDarkmode] = useState(false)
+  useEffect(() => {
+    setInterval(async () => {
+        if (!auth.currentUser) return
+
+        const snapshot = await database.ref(`users/${auth.currentUser.uid}/`).once('value')
+        setDarkmode(snapshot.val().darkmode)
+
+    }, 1000);
+}, [])
 
   return (
     <View style={{ flex: 1, backgroundColor: darkmode ? black : white }}>

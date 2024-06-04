@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -9,6 +9,7 @@ import { Entypo, FontAwesome } from '@expo/vector-icons/build/Icons';
 import TabIcon from '../components/TabIcon';
 import Profile from './Profile';
 import { black, pureBlack, pureWhite, white } from '../utility/colors';
+import { auth, database } from '../database';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -62,6 +63,15 @@ export default function Navigator() {
     ];
 
     const [darkmode, setDarkmode] = useState(false)
+    useEffect(() => {
+        setInterval(async () => {
+            if (!auth.currentUser) return
+
+            const snapshot = await database.ref(`users/${auth.currentUser.uid}/`).once('value')
+            setDarkmode(snapshot.val().darkmode)
+
+        }, 1000);
+    }, [])
 
     return (
         <NavigationContainer>

@@ -1,11 +1,12 @@
-import { View, Text, StyleSheet, ScrollView, Animated } from 'react-native'
-import React, { useCallback, useRef, useState } from 'react'
+import { View, Text, StyleSheet, Animated } from 'react-native'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import HeaderImage from '../components/HeaderImage'
 import Socials from '../components/Socials'
 import Logo from '../components/Logo'
 import SponsorButton from '../components/SponsorButton'
 import { useFocusEffect } from '@react-navigation/native'
 import { black, pureBlack, pureWhite, white } from '../utility/colors'
+import { auth, database } from '../database'
 
 export default function Informations() {
     const fadeAnim = useRef(new Animated.Value(0.3)).current;
@@ -26,6 +27,15 @@ export default function Informations() {
     );
 
     const [darkmode, setDarkmode] = useState(false)
+    useEffect(() => {
+        setInterval(async () => {
+            if (!auth.currentUser) return
+
+            const snapshot = await database.ref(`users/${auth.currentUser.uid}/`).once('value')
+            setDarkmode(snapshot.val().darkmode)
+
+        }, 1000);
+    }, [])
 
     return (
         <View style={{ backgroundColor: darkmode ? black : white }}>

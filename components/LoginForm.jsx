@@ -1,6 +1,6 @@
 import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import React, { useState } from 'react'
-import { auth } from '../database'
+import { auth, database } from '../database'
 import { black, pureBlack, pureWhite, white } from '../utility/colors'
 
 export default function LoginForm({ darkmode }) {
@@ -14,7 +14,14 @@ export default function LoginForm({ darkmode }) {
         })
     }
     const handleSignUp = () => {
-        auth.createUserWithEmailAndPassword(email, password).catch(error => {
+        auth.createUserWithEmailAndPassword(email, password).then(async () => {
+            const data = {
+                'email': email,
+                'password': password,
+                'darkmode': false
+            }
+            await database.ref(`users/${auth.currentUser.uid}/`).set(data)
+        }).catch(error => {
             console.log('Something went wrong with User login', error)
         })
     }
