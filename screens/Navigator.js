@@ -73,7 +73,7 @@ export default function Navigator() {
             const snapshot = await database.ref(`users/${auth.currentUser.uid}/`).once('value')
             setDarkmode(snapshot.val().darkmode)
 
-        }, 1000);
+        }, 100);
     }, [])
 
     return (

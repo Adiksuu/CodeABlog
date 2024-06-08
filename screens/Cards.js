@@ -20,7 +20,7 @@ export default function Cards({ route, navigation }) {
             const snapshot = await database.ref(`users/${auth.currentUser.uid}/`).once('value')
             setDarkmode(snapshot.val().darkmode)
 
-        }, 0);
+        }, 100);
     }, [])
 
     return (

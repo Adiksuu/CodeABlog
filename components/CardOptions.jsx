@@ -8,6 +8,8 @@ export default function CardOptions({ item, darkmode }) {
     const [cardLiked, setCardLiked] = useState(false)
     const [cardLikes, setCardLikes] = useState(0)
 
+    const [cardComments, setCardComments] = useState(0)
+
     const handleLikeCard = async () => {
         setCardLiked(!cardLiked);
     
@@ -41,8 +43,17 @@ export default function CardOptions({ item, darkmode }) {
         setCardLiked(isLiked)
     }
 
+    const handleLoadComments = async () => {
+        const snapshotPath = `projects/${item.id}/comments/`;
+        const snapshot = await database.ref(snapshotPath).once('value')
+
+        const newComments = snapshot.val() ? snapshot.numChildren() : 0
+        setCardComments(newComments)
+    }
+
     useEffect(() => {
         handleLoadLikes()
+        handleLoadComments()
     }, [auth.currentUser])
 
     return (
@@ -52,8 +63,8 @@ export default function CardOptions({ item, darkmode }) {
                 <Text style={{...styles.optionsText, color: darkmode ? white : black}}>{cardLikes} Likes</Text>
             </TouchableOpacity>
             <TouchableOpacity style={{...styles.optionsButton, backgroundColor: darkmode ? black : white}} activeOpacity={0.7}>
-                <FontAwesome6 name="question" size={16} color={darkmode ? white : black} />
-                <Text style={{...styles.optionsText, color: darkmode ? white : black}}>Soon...</Text>
+                <FontAwesome6 name="message" size={16} color={darkmode ? white : black} />
+                <Text style={{...styles.optionsText, color: darkmode ? white : black}}>{cardComments} Comments</Text>
             </TouchableOpacity>
         </View>
     )

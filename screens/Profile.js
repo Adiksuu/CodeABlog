@@ -33,7 +33,7 @@ export default function Profile() {
 
     setInterval(() => {
       setAlreadyLogged(auth.currentUser ? true : false);
-    }, 1000);
+    }, 100);
   }, []);
 
   const [darkmode, setDarkmode] = useState(false)
@@ -47,7 +47,7 @@ export default function Profile() {
         const snapshot = await database.ref(`users/${auth.currentUser.uid}/`).once('value')
         setDarkmode(snapshot.val().darkmode)
 
-    }, 1000);
+    }, 100);
 }, [])
 
   return (

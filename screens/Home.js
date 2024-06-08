@@ -35,7 +35,7 @@ export default function Home() {
             const snapshot = await database.ref(`users/${auth.currentUser.uid}/`).once('value')
             setDarkmode(snapshot.val().darkmode)
 
-        }, 1000);
+        }, 100);
     }, [])
 
     useEffect(() => {
@@ -46,7 +46,7 @@ export default function Home() {
 
         setInterval(() => {
             setAlreadyLogged(auth.currentUser ? true : false);
-        }, 1000);
+        }, 100);
     }, []);
 
     return (
