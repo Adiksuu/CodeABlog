@@ -1,10 +1,17 @@
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { AntDesign, FontAwesome6 } from '@expo/vector-icons'
 import { auth, database } from '../database'
 import { black, white } from '../utility/colors'
+import { useFocusEffect, useNavigation } from '@react-navigation/native'
 
 export default function CardOptions({ item, darkmode }) {
+    const navigation = useNavigation();
+
+    const handleOpenComments = () => {
+        navigation.navigate("Comments", { id: item.id });
+    };
+
     const [cardLiked, setCardLiked] = useState(false)
     const [cardLikes, setCardLikes] = useState(0)
 
@@ -12,12 +19,12 @@ export default function CardOptions({ item, darkmode }) {
 
     const handleLikeCard = async () => {
         setCardLiked(!cardLiked);
-    
+
         const snapshotPath = `projects/${item.id}/`;
         const snapshot = await database.ref(snapshotPath).once('value');
-    
+
         let currentLikes = snapshot.val() ? snapshot.val().likes : 0;
-        let newLikes = cardLiked ? currentLikes - 1 : currentLikes + 1;    
+        let newLikes = cardLiked ? currentLikes - 1 : currentLikes + 1;
         setCardLikes(newLikes)
         await database.ref(snapshotPath).update({ 'likes': newLikes });
 
@@ -51,20 +58,20 @@ export default function CardOptions({ item, darkmode }) {
         setCardComments(newComments)
     }
 
-    useEffect(() => {
+    useFocusEffect(() => {
         handleLoadLikes()
         handleLoadComments()
-    }, [auth.currentUser])
+    })
 
     return (
         <View style={styles.options}>
-            <TouchableOpacity style={{...styles.optionsButton, backgroundColor: darkmode ? black : white}} activeOpacity={0.7} onPress={() => handleLikeCard()}>
+            <TouchableOpacity style={{ ...styles.optionsButton, backgroundColor: darkmode ? black : white }} activeOpacity={0.7} onPress={() => handleLikeCard()}>
                 <AntDesign name={cardLiked ? 'like1' : 'like2'} size={20} color={darkmode ? white : black} />
-                <Text style={{...styles.optionsText, color: darkmode ? white : black}}>{cardLikes} Likes</Text>
+                <Text style={{ ...styles.optionsText, color: darkmode ? white : black }}>{cardLikes} Likes</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={{...styles.optionsButton, backgroundColor: darkmode ? black : white}} activeOpacity={0.7}>
+            <TouchableOpacity style={{ ...styles.optionsButton, backgroundColor: darkmode ? black : white }} activeOpacity={0.7} onPress={handleOpenComments}>
                 <FontAwesome6 name="message" size={16} color={darkmode ? white : black} />
-                <Text style={{...styles.optionsText, color: darkmode ? white : black}}>{cardComments} Comments</Text>
+                <Text style={{ ...styles.optionsText, color: darkmode ? white : black }}>{cardComments} Comments</Text>
             </TouchableOpacity>
         </View>
     )

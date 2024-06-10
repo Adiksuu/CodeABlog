@@ -32,7 +32,6 @@ const styles = StyleSheet.create({
         borderBottomLeftRadius: 8,
         paddingHorizontal: 16,
         fontFamily: 'Poppins_500Medium',
-        
     },
     iconCircle: {
         borderTopRightRadius: 8,

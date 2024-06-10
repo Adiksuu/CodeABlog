@@ -8,8 +8,9 @@ import Informations from './Informations';
 import { Entypo, FontAwesome } from '@expo/vector-icons/build/Icons';
 import TabIcon from '../components/TabIcon';
 import Profile from './Profile';
-import { black, pureBlack, pureWhite, white } from '../utility/colors';
+import { pureBlack, pureWhite } from '../utility/colors';
 import { auth, database } from '../database';
+import Comments from './Comments';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -30,11 +31,11 @@ const options = {
 };
 
 export default function Navigator() {
-    const createStack = (initialRoute, additionalScreens = {}) => {
+    const createStack = (initialRoute, additionalScreens = []) => {
         return () => (
             <Stack.Navigator screenOptions={{ headerShown: false }}>
                 <Stack.Screen name={initialRoute.name} component={initialRoute.component} />
-                {Object.entries(additionalScreens).map(([name, component]) => (
+                {additionalScreens.map(({ name, component }) => (
                     <Stack.Screen key={name} name={name} component={component} options={{
                         animationTypeForReplace: 'push',
                         animation: 'slide_from_right',
@@ -43,11 +44,14 @@ export default function Navigator() {
             </Stack.Navigator>
         );
     };
-
+    
     const tabs = [
         {
             name: "HomeTab",
-            stack: createStack({ name: "Home", component: Home }, { Cards }),
+            stack: createStack({ name: "Home", component: Home }, [
+                { name: "Comments", component: Comments },
+                { name: "Cards", component: Cards }
+            ]),
             icon: { name: "home", component: Entypo }
         },
         {

@@ -3,13 +3,13 @@ import React from 'react'
 import { Ionicons } from '@expo/vector-icons'
 import { black, pureBlack, pureWhite, white } from '../utility/colors'
 
-export default function Header({ navigation, darkmode }) {
+export default function Header({ navigation, darkmode, text }) {
     return (
         <View style={{...styles.container, backgroundColor: darkmode ? pureBlack : pureWhite}}>
             <TouchableOpacity onPress={() => navigation.goBack()} style={{...styles.circleIcon, backgroundColor: darkmode ? black : white}} activeOpacity={0.7}>
                 <Ionicons name="arrow-back" size={20} color={darkmode ? pureWhite : pureBlack} />
             </TouchableOpacity>
-            <Text style={{...styles.text, color: darkmode ? pureWhite : pureBlack}}>Project Info</Text>
+            <Text style={{...styles.text, color: darkmode ? pureWhite : pureBlack}}>{text}</Text>
         </View>
     )
 }

@@ -25,7 +25,7 @@ export default function Cards({ route, navigation }) {
 
     return (
         <View style={{backgroundColor: darkmode ? black : white}}>
-            <Header navigation={navigation} darkmode={darkmode} />
+            <Header navigation={navigation} darkmode={darkmode} text={"Project Info"} />
             <ScrollView style={styles.container}>
                 <CardDetails card={card} darkmode={darkmode} />
             </ScrollView>
