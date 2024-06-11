@@ -6,6 +6,7 @@ import Socials from '../components/Socials';
 import { useFocusEffect } from '@react-navigation/native';
 import { black, pureBlack, pureWhite, white } from '../utility/colors';
 import { auth, database } from '../database';
+import Selector from '../components/Selector';
 
 export default function Home() {
     const fadeAnim = useRef(new Animated.Value(0.3)).current;
@@ -49,13 +50,18 @@ export default function Home() {
         }, 100);
     }, []);
 
+    const [selectedView, setSelectedView] = useState('projects')
+
     return (
         <View style={{ flex: 1, backgroundColor: darkmode ? black : white }}>
             <HeaderImage />
             <Animated.ScrollView style={{ ...styles.container, opacity: fadeAnim }}>
                 <View style={styles.textContainer}>
-                    <Text style={{...styles.welcomeText, color: darkmode ? pureWhite : pureBlack}}>Explore the World of my Projects!</Text>
+                    <Text style={{ ...styles.welcomeText, color: darkmode ? pureWhite : pureBlack }}>Explore the World of my Projects!</Text>
                     <Text style={styles.descriptionText}>Browse the my featured projects, you can learn more about them on my github page, click the project box to open the specific project website</Text>
+                </View>
+                <View style={styles.selectorContainer}>
+                    <Selector darkmode={darkmode} setSelectedView={setSelectedView} selectedView={selectedView} />
                 </View>
                 <CardList darkmode={darkmode} />
                 <View style={styles.textContainer}>
@@ -86,4 +92,8 @@ const styles = StyleSheet.create({
         alignItems: "left",
         padding: 20
     },
+    selectorContainer: {
+        paddingHorizontal: 20,
+        paddingBottom: 20
+    }
 });
