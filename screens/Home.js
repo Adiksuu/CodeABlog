@@ -7,6 +7,7 @@ import { useFocusEffect } from '@react-navigation/native';
 import { black, pureBlack, pureWhite, white } from '../utility/colors';
 import { auth, database } from '../database';
 import Selector from '../components/Selector';
+import NewsList from '../components/NewsList';
 
 export default function Home() {
     const fadeAnim = useRef(new Animated.Value(0.3)).current;
@@ -57,13 +58,13 @@ export default function Home() {
             <HeaderImage />
             <Animated.ScrollView style={{ ...styles.container, opacity: fadeAnim }}>
                 <View style={styles.textContainer}>
-                    <Text style={{ ...styles.welcomeText, color: darkmode ? pureWhite : pureBlack }}>Explore the World of my Projects!</Text>
-                    <Text style={styles.descriptionText}>Browse the my featured projects, you can learn more about them on my github page, click the project box to open the specific project website</Text>
+                    <Text style={{ ...styles.welcomeText, color: darkmode ? pureWhite : pureBlack }}>Explore the World of my {selectedView === 'Projects' ? 'Projects' : 'News'}!</Text>
+                    <Text style={styles.descriptionText}>{selectedView === 'Projects' ? 'Browse the my featured projects, you can learn more about them on my github page, click the project box to open the specific project website' : 'Read news about changes and future projects planned by me, all in one place!'}</Text>
                 </View>
                 <View style={styles.selectorContainer}>
                     <Selector darkmode={darkmode} setSelectedView={setSelectedView} selectedView={selectedView} />
                 </View>
-                <CardList darkmode={darkmode} />
+                {selectedView === 'Projects' ? <CardList darkmode={darkmode} /> : <NewsList />}
                 <View style={styles.textContainer}>
                     <Socials darkmode={darkmode} />
                 </View>
