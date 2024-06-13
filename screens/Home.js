@@ -51,7 +51,7 @@ export default function Home() {
         }, 100);
     }, []);
 
-    const [selectedView, setSelectedView] = useState('projects')
+    const [selectedView, setSelectedView] = useState('Projects')
 
     return (
         <View style={{ flex: 1, backgroundColor: darkmode ? black : white }}>
@@ -64,7 +64,7 @@ export default function Home() {
                 <View style={styles.selectorContainer}>
                     <Selector darkmode={darkmode} setSelectedView={setSelectedView} selectedView={selectedView} />
                 </View>
-                {selectedView === 'Projects' ? <CardList darkmode={darkmode} /> : <NewsList />}
+                {selectedView === 'Projects' ? <CardList darkmode={darkmode} /> : <NewsList darkmode={darkmode} />}
                 <View style={styles.textContainer}>
                     <Socials darkmode={darkmode} />
                 </View>
