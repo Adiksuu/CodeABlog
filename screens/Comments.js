@@ -5,6 +5,7 @@ import { auth, database } from '../database';
 import { black, pureBlack, pureWhite, white } from '../utility/colors';
 import { FontAwesome5 } from '@expo/vector-icons';
 import Comment from '../components/Comment';
+import NoCommentsFound from '../components/NoCommentsFound';
 
 export default function Comments({ route, navigation }) {
   const { id } = route.params;
@@ -61,7 +62,7 @@ export default function Comments({ route, navigation }) {
     <View style={{ flex: 1, backgroundColor: darkmode ? black : white }}>
       <Header navigation={navigation} darkmode={darkmode} text={"Comments"} />
       <ScrollView style={styles.content}>
-        <View style={styles.comments}>{comments.map((card, key) => <Comment key={key} card={card} darkmode={darkmode} />)}</View>
+        <View style={styles.comments}>{comments.length > 0 ? comments.map((card, key) => <Comment key={key} card={card} darkmode={darkmode} />) : <NoCommentsFound darkmode={darkmode} />}</View>
       </ScrollView>
       <View style={{ ...styles.inputView, backgroundColor: darkmode ? black : white }}>
         <TextInput placeholder='Create comment' placeholderTextColor={darkmode ? pureWhite : pureBlack} value={commentText} onChangeText={(e) => setCommentText(e)} style={{ ...styles.input, backgroundColor: darkmode ? pureBlack : pureWhite, color: darkmode ? white : black }} />
