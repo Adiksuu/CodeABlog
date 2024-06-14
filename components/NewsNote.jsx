@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
     container: {
         borderRadius: 8,
         padding: 16,
-        margin: 16,
+        marginHorizontal: 16,
     },
     header: {
         marginBottom: 8,
