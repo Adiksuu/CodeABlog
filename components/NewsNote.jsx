@@ -5,13 +5,13 @@ import { FontAwesome6 } from '@expo/vector-icons';
 
 export default function NewsNote({ darkmode, card }) {
     return (
-        <View style={{...styles.container, backgroundColor: darkmode ? pureBlack : pureWhite}}>
+        <View style={{ ...styles.container, backgroundColor: darkmode ? pureBlack : pureWhite }}>
             <View style={styles.header}>
-                <Text style={{...styles.headerText, color: darkmode ? white : black}}>{card.header}</Text>
+                <Text style={{ ...styles.headerText, color: darkmode ? white : black }}>{card.header}</Text>
             </View>
             <Text style={styles.title}>{card.title}</Text>
             <View style={styles.footer}>
-                <Text style={{...styles.date, color: darkmode ? white : black}}>{card.date}</Text>
+                <Text style={styles.date}>Modified: {card.date}</Text>
                 <Text style={styles.category}><FontAwesome6 name={card.icon} size={14} color={white} /> {card.category}</Text>
             </View>
         </View>
@@ -44,8 +44,9 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     date: {
-        color: '#7d7d7d',
-        fontFamily: 'Nunito_600SemiBold'
+        fontSize: 12,
+        color: "#7d7d7d",
+        fontFamily: "Nunito_700Bold",
     },
     category: {
         backgroundColor: '#4A90E2',
