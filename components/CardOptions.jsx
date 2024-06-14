@@ -23,7 +23,7 @@ export default function CardOptions({ item, darkmode }) {
         const snapshotPath = `projects/${item.id}/`;
         const snapshot = await database.ref(snapshotPath).once('value');
 
-        let currentLikes = snapshot.val() ? snapshot.val().likes : 0;
+        let currentLikes = snapshot.exists() && snapshot.val().likes ? snapshot.val().likes : 0;
         let newLikes = cardLiked ? currentLikes - 1 : currentLikes + 1;
         setCardLikes(newLikes)
         await database.ref(snapshotPath).update({ 'likes': newLikes });
@@ -39,7 +39,7 @@ export default function CardOptions({ item, darkmode }) {
         const snapshotPath = `projects/${item.id}/`;
         const snapshot = await database.ref(snapshotPath).once('value');
 
-        const newLikes = snapshot.val() ? snapshot.val().likes : 0
+        const newLikes = snapshot.exists() && snapshot.val().likes ? snapshot.val().likes : 0
         setCardLikes(newLikes)
 
         const UID = auth.currentUser.uid
