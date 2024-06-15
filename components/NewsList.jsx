@@ -30,6 +30,7 @@ export default function NewsList({ darkmode }) {
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'column',
-    gap: 20
+    gap: 16,
+    marginHorizontal: 4
   }
 })

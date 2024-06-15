@@ -11,6 +11,9 @@ import Profile from './Profile';
 import { pureBlack, pureWhite } from '../utility/colors';
 import { auth, database } from '../database';
 import Comments from './Comments';
+import { Text, View } from 'react-native';
+import NewVersionPopup from '../components/NewVersionPopup';
+import { currentVersion } from '../utility/versionCheck';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -44,7 +47,7 @@ export default function Navigator() {
             </Stack.Navigator>
         );
     };
-    
+
     const tabs = [
         {
             name: "HomeTab",
@@ -80,27 +83,41 @@ export default function Navigator() {
         }, 100);
     }, [])
 
+    const [latestVersion, setlatestVersion] = useState(currentVersion)
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const snapshot = await database.ref('app/').once('value');
+            setlatestVersion(snapshot.val().latestVersion);
+        };
+    
+        fetchData();
+    }, []);
+
     return (
-        <NavigationContainer>
-            <Tab.Navigator screenOptions={{...options, tabBarStyle: {...options.tabBarStyle, backgroundColor: darkmode ? pureBlack : pureWhite}}}>
-                {tabs.map(tab => (
-                    <Tab.Screen
-                        key={tab.name}
-                        name={tab.name}
-                        component={tab.stack}
-                        options={{
-                            tabBarIcon: ({ focused }) => (
-                                <TabIcon
-                                    name={tab.icon.name}
-                                    label={tab.name.replace("Tab", "")}
-                                    focused={focused}
-                                    iconComponent={tab.icon.component}
-                                />
-                            )
-                        }}
-                    />
-                ))}
-            </Tab.Navigator>
-        </NavigationContainer>
+        <>
+            <NavigationContainer>
+                <Tab.Navigator screenOptions={{ ...options, tabBarStyle: { ...options.tabBarStyle, backgroundColor: darkmode ? pureBlack : pureWhite } }}>
+                    {tabs.map(tab => (
+                        <Tab.Screen
+                            key={tab.name}
+                            name={tab.name}
+                            component={tab.stack}
+                            options={{
+                                tabBarIcon: ({ focused }) => (
+                                    <TabIcon
+                                        name={tab.icon.name}
+                                        label={tab.name.replace("Tab", "")}
+                                        focused={focused}
+                                        iconComponent={tab.icon.component}
+                                    />
+                                )
+                            }}
+                        />
+                    ))}
+                </Tab.Navigator>
+            </NavigationContainer>
+            {currentVersion !== latestVersion ? <NewVersionPopup darkmode={darkmode} /> : null}
+        </>
     );
 }

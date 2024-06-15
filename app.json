@@ -2,7 +2,7 @@
   "expo": {
     "name": "CodeABlog",
     "slug": "code-a-blog",
-    "version": "1.1.0",
+    "version": "1.1.0-pre-3",
     "orientation": "portrait",
     "icon": "./assets/ico.png",
     "userInterfaceStyle": "light",
@@ -19,7 +19,7 @@
         "foregroundImage": "./assets/banner.png",
         "backgroundColor": "#ffffff"
       },
-      "icon":"./assets/ico.png",
+      "icon": "./assets/ico.png",
       "package": "pl.code.adiksuu"
     },
     "web": {
@@ -32,6 +32,12 @@
       "eas": {
         "projectId": "8217fe95-108c-4c3e-bda1-ce34807b7423"
       }
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/8217fe95-108c-4c3e-bda1-ce34807b7423"
     }
   }
 }
