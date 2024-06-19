@@ -49,7 +49,7 @@ export default function Comments({ route, navigation }) {
     const date = new Date()
 
     const data = {
-      name: auth.currentUser.email,
+      name: (await database.ref(`users/${auth.currentUser.uid}/`).once('value')).val().username,
       text: text,
       date: `${date.getDate().toString().padStart(2, '0')}.${(date.getMonth() + 1).toString().padStart(2, '0')}.${date.getFullYear()}`
     }

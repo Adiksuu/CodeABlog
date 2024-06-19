@@ -6,6 +6,7 @@ import { black, pureBlack, pureWhite, white } from '../utility/colors'
 export default function LoginForm({ darkmode }) {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const [username, setUsername] = useState('')
     const [signIn, setSignIn] = useState(true)
 
     const handleLogin = () => {
@@ -14,10 +15,12 @@ export default function LoginForm({ darkmode }) {
         })
     }
     const handleSignUp = () => {
+        if (username.trim() === '' || username.length < 8) return
         auth.createUserWithEmailAndPassword(email, password).then(async () => {
             const data = {
                 'email': email,
                 'password': password,
+                'username': username,
                 'darkmode': false
             }
             await database.ref(`users/${auth.currentUser.uid}/`).set(data)
@@ -66,6 +69,10 @@ export default function LoginForm({ darkmode }) {
             <View style={styles.inputView}>
                 <Text style={{ ...styles.inputText, color: darkmode ? pureWhite : pureBlack }}>Your email:</Text>
                 <TextInput placeholder='Email' placeholderTextColor={darkmode ? pureWhite : pureBlack} value={email} onChangeText={(e) => { setEmail(e) }} style={{ ...styles.input, backgroundColor: darkmode ? black : white, color: darkmode ? pureWhite : pureBlack }} />
+            </View>
+            <View style={styles.inputView}>
+                <Text style={{ ...styles.inputText, color: darkmode ? pureWhite : pureBlack }}>Your username:</Text>
+                <TextInput placeholder='Username' placeholderTextColor={darkmode ? pureWhite : pureBlack} onChangeText={(e) => { setUsername(e) }} style={{ ...styles.input, backgroundColor: darkmode ? black : white, color: darkmode ? pureWhite : pureBlack }} />
             </View>
             <View style={styles.inputView}>
                 <Text style={{ ...styles.inputText, color: darkmode ? pureWhite : pureBlack }}>Your password:</Text>
