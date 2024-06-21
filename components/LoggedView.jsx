@@ -2,12 +2,27 @@ import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
 import React from 'react'
 import { auth } from '../database'
 import { pureBlack, pureWhite } from '../utility/colors'
+import { useNavigation } from "@react-navigation/native";
 import Settings from './Settings'
 
 export default function LoggedView({ darkmode, setDarkmode }) {
+    const navigation = useNavigation()
+
     const handleLogout = () => {
         auth.signOut()
     }
+
+    function ManageNewsButton() {
+        return (
+            <TouchableOpacity style={{ ...styles.button, backgroundColor: darkmode ? pureBlack : pureWhite }} activeOpacity={0.7} onPress={() => handleOpenLink()}>
+                <Text style={{ ...styles.buttonText, color: darkmode ? pureWhite : pureBlack }}>MANAGE THE NEWS</Text>
+            </TouchableOpacity>
+        )
+    }
+
+    const handleOpenLink = () => {
+        navigation.navigate("NewsUploader", { darkmode: darkmode });
+    };
 
     return (
         <View>
@@ -17,10 +32,11 @@ export default function LoggedView({ darkmode, setDarkmode }) {
             </View>
             <View>
                 <Settings darkmode={darkmode} setDarkmode={setDarkmode} />
-                <View>
+                <View style={{ gap: 8 }}>
                     <TouchableOpacity style={{ ...styles.button, backgroundColor: darkmode ? pureBlack : pureWhite }} activeOpacity={0.7} onPress={() => handleLogout()}>
                         <Text style={{ ...styles.buttonText, color: darkmode ? pureWhite : pureBlack }}>LOGOUT</Text>
                     </TouchableOpacity>
+                    {auth.currentUser.uid === 'ZERdxxCRYGhdSzasPVgy74UudcZ2' ? <ManageNewsButton /> : null}
                 </View>
             </View>
         </View>

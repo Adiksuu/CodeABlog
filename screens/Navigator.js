@@ -11,9 +11,9 @@ import Profile from './Profile';
 import { pureBlack, pureWhite } from '../utility/colors';
 import { auth, database } from '../database';
 import Comments from './Comments';
-import { Text, View } from 'react-native';
 import NewVersionPopup from '../components/NewVersionPopup';
 import { currentVersion } from '../utility/versionCheck';
+import NewsUploader from './NewsUploader';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -64,7 +64,9 @@ export default function Navigator() {
         },
         {
             name: "ProfileTab",
-            stack: createStack({ name: "Profile", component: Profile }),
+            stack: createStack({ name: "Profile", component: Profile }, [
+                { name: "NewsUploader", component: NewsUploader }
+            ]),
             icon: { name: "user", component: FontAwesome }
         }
     ];
@@ -90,7 +92,7 @@ export default function Navigator() {
             const snapshot = await database.ref('app/').once('value');
             setlatestVersion(snapshot.val().latestVersion);
         };
-    
+
         fetchData();
     }, []);
 
