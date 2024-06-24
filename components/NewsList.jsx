@@ -1,28 +1,35 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import NewsNote from './NewsNote'
 import { StyleSheet, View } from 'react-native'
+import { database } from '../database';
 
 export default function NewsList({ darkmode }) {
-  const notes = [
-    {
-      header: 'Pre-release versions',
-      title: 'Some functionalities may be slightly changed after the full version is released. This is a version that is not fully developed and may contain errors, please let us know',
-      date: '14.06.2024',
-      category: 'Information',
-      icon: 'circle-info'
-    },
-    {
-      header: 'Update v1.1.0',
-      title: 'The application will soon leave the test phase (BETA), I am currently working on a new version of the application (v1.1.0), for which you will be able to receive a pre-release version within a few days.',
-      date: '13.06.2024',
-      category: 'New update',
-      icon: 'chart-line'
-    },
-  ]
+  const [notes, setNotes] = useState([])
+
+  useEffect(() => {
+    if (notes.length != 0) return
+
+    const notesRef = database.ref(`news/`);
+    notesRef.on('value', (snapshot) => {
+      if (!snapshot.exists) return
+      const notesArray = [];
+      snapshot.forEach((childSnapshot) => {
+        const note = {
+          header: childSnapshot.val().header,
+          title: childSnapshot.val().title,
+          date: childSnapshot.val().date,
+          category: childSnapshot.val().category,
+          icon: childSnapshot.val().icon,
+        };
+        notesArray.push(note);
+      });
+      setNotes(notesArray);
+    });
+  });
 
   return (
     <View style={styles.container}>
-      {notes.map((note, key) => <NewsNote key={key} card={note} darkmode={darkmode} />)}
+      {notes.reverse().map((note, key) => <NewsNote key={key} card={note} darkmode={darkmode} />)}
     </View>
   )
 }
