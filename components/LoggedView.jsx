@@ -14,7 +14,7 @@ export default function LoggedView({ darkmode, setDarkmode }) {
 
     function ManageNewsButton() {
         return (
-            <TouchableOpacity style={{ ...styles.button, backgroundColor: darkmode ? pureBlack : pureWhite }} activeOpacity={0.7} onPress={() => handleOpenLink()}>
+            <TouchableOpacity style={{ ...styles.button, backgroundColor: darkmode ? pureBlack : pureWhite }} activeOpacity={0.7} onPress={() => handleOpenLinktart()}>
                 <Text style={{ ...styles.buttonText, color: darkmode ? pureWhite : pureBlack }}>MANAGE THE NEWS</Text>
             </TouchableOpacity>
         )
