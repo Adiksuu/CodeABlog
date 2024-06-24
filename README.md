@@ -25,7 +25,7 @@ To install the CodeABlog mobile application, follow these steps:
 ### Steps
 
 1. **Download the latest release**:
-   - Visit the [CodeABlog GitHub Releases page](https://github.com/yourusername/CodeABlog/releases).
+   - Visit the [CodeABlog GitHub Releases page](https://github.com/Adiksuu/CodeABlog/releases).
    - Download the latest version of the application suitable for your device:
      - For Android, download the `.apk` file.
      - For iOS, download the `.ipa` file.
