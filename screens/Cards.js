@@ -3,28 +3,13 @@ import React, { useEffect, useState } from 'react'
 import Header from '../components/Header';
 import CardDetails from '../components/CardDetails';
 import { black, white } from '../utility/colors';
-import { auth, database } from '../database';
-
 
 export default function Cards({ route, navigation }) {
     const { card } = route.params;
-
-    const [darkmode, setDarkmode] = useState(false)
-    useEffect(() => {
-        setInterval(async () => {
-            if (!auth.currentUser) {
-                setDarkmode(false)
-                return
-            }
-
-            const snapshot = await database.ref(`users/${auth.currentUser.uid}/`).once('value')
-            setDarkmode(snapshot.val().darkmode)
-
-        }, 100);
-    }, [])
+    const { darkmode } = route.params
 
     return (
-        <View style={{backgroundColor: darkmode ? black : white}}>
+        <View style={{ backgroundColor: darkmode ? black : white }}>
             <Header navigation={navigation} darkmode={darkmode} text={"Project Info"} />
             <ScrollView style={styles.container}>
                 <CardDetails card={card} darkmode={darkmode} />

@@ -9,7 +9,7 @@ export default function Card({ item, darkmode }) {
   const navigation = useNavigation();
 
   const handleOpenLink = () => {
-    navigation.navigate("Cards", { card: item });
+    navigation.navigate("Cards", { card: item, darkmode: darkmode });
   };
 
   const [alreadyLogged, setAlreadyLogged] = useState(false);

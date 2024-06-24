@@ -9,18 +9,7 @@ import NoCommentsFound from '../components/NoCommentsFound';
 
 export default function Comments({ route, navigation }) {
   const { id } = route.params;
-
-  const [darkmode, setDarkmode] = useState(false)
-
-  useEffect(() => {
-    setInterval(async () => {
-      if (!auth.currentUser) return
-
-      const snapshot = await database.ref(`users/${auth.currentUser.uid}/`).once('value')
-      setDarkmode(snapshot.val().darkmode)
-
-    }, 100);
-  }, [])
+  const { darkmode } = route.params;
 
   const [commentText, setCommentText] = useState('')
 

@@ -9,7 +9,7 @@ export default function CardOptions({ item, darkmode }) {
     const navigation = useNavigation();
 
     const handleOpenComments = () => {
-        navigation.navigate("Comments", { id: item.id });
+        navigation.navigate("Comments", { id: item.id, darkmode: darkmode });
     };
 
     const [cardLiked, setCardLiked] = useState(false)
