@@ -3,7 +3,6 @@ import React from 'react'
 import { auth } from '../database'
 import { pureBlack, pureWhite } from '../utility/colors'
 import { useNavigation } from "@react-navigation/native";
-import Settings from './Settings'
 
 export default function LoggedView({ darkmode, setDarkmode }) {
     const navigation = useNavigation()
@@ -19,10 +18,21 @@ export default function LoggedView({ darkmode, setDarkmode }) {
             </TouchableOpacity>
         )
     }
+    function ManageSettingsButton() {
+        return (
+            <TouchableOpacity style={{ ...styles.button, backgroundColor: darkmode ? pureBlack : pureWhite }} activeOpacity={0.7} onPress={() => handleOpenSettings()}>
+                <Text style={{ ...styles.buttonText, color: darkmode ? pureWhite : pureBlack }}>SETTINGS</Text>
+            </TouchableOpacity>
+        )
+    }
 
     const handleOpenLink = () => {
         navigation.navigate("NewsUploader", { darkmode: darkmode });
     };
+
+    const handleOpenSettings = () => {
+        navigation.navigate("Settings")
+    }
 
     return (
         <View>
@@ -31,8 +41,8 @@ export default function LoggedView({ darkmode, setDarkmode }) {
                 <Text style={styles.descriptionText}>You have already logged in, now you have access to more features of the application. If you want, you can log out</Text>
             </View>
             <View>
-                <Settings darkmode={darkmode} setDarkmode={setDarkmode} />
                 <View style={{ gap: 8 }}>
+                    <ManageSettingsButton />
                     <TouchableOpacity style={{ ...styles.button, backgroundColor: darkmode ? pureBlack : pureWhite }} activeOpacity={0.7} onPress={() => handleLogout()}>
                         <Text style={{ ...styles.buttonText, color: darkmode ? pureWhite : pureBlack }}>LOGOUT</Text>
                     </TouchableOpacity>
