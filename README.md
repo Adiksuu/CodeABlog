@@ -3,12 +3,6 @@
 Welcome to the CodeABlog mobile application! This app is a mobile reflection of the CodeABlog website, providing you with the convenience of browsing through projects, reading detailed descriptions, and managing your account directly from your mobile device.
 
 ---
-## The future of application
-- The application will soon leave the test phase (BETA), I am currently working on a new version of the application (v1.1.0), for which you will be able to receive a pre-release version within a few days. Below is an (incomplete) record of everything changed in v1.1.0
-  
-![Code A Blog  v1 1 0  banner](https://github.com/Adiksuu/CodeABlog/assets/75419729/0d4faa91-c35f-4620-b743-d625fad7423a)
-
----
 ## Features
 
 - **Project Browsing**: View all projects available on CodeABlog with comprehensive descriptions.
@@ -31,7 +25,7 @@ To install the CodeABlog mobile application, follow these steps:
 ### Steps
 
 1. **Download the latest release**:
-   - Visit the [CodeABlog GitHub Releases page](https://github.com/yourusername/CodeABlog/releases).
+   - Visit the [CodeABlog GitHub Releases page](https://github.com/Adiksuu/CodeABlog/releases).
    - Download the latest version of the application suitable for your device:
      - For Android, download the `.apk` file.
      - For iOS, download the `.ipa` file.
