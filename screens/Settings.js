@@ -4,6 +4,7 @@ import { black, pureBlack, pureWhite, white } from '../utility/colors';
 import Header from '../components/Header';
 import SettingsComponent from '../components/Settings'
 import { auth, database } from '../database';
+import ChangePassword from '../components/ChangePassword';
 
 export default function Settings({ navigation }) {
     const [darkmode, setDarkmode] = useState(false)
@@ -24,10 +25,10 @@ export default function Settings({ navigation }) {
             <ScrollView style={styles.content}>
                 <View style={styles.textContainer}>
                     <Text style={{ ...styles.welcomeText, color: darkmode ? pureWhite : pureBlack }}>Manage your account settings</Text>
-                    {/* <Text style={styles.descriptionText}>You have already logged in, now you have access to more features of the application. If you want, you can log out</Text> */}
                 </View>
                 <View>
                     <SettingsComponent darkmode={darkmode} setDarkmode={setDarkmode} />
+                    <ChangePassword darkmode={darkmode} />
                 </View>
             </ScrollView>
         </View>
