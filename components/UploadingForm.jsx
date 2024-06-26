@@ -23,6 +23,10 @@ export default function UploadingForm({ darkmode }) {
         const count = (await database.ref(`news/`).once('value')).numChildren()
 
         await database.ref(`news/${count + 1}`).set(data)
+        setHeader('')
+        setTitle('')
+        setCategory('')
+        setIcon('')
     }
 
     return (
