@@ -43,10 +43,10 @@ export default function LoggedView({ darkmode, setDarkmode }) {
             <View>
                 <View style={{ gap: 8 }}>
                     <ManageSettingsButton />
+                    {auth.currentUser.uid === 'ZERdxxCRYGhdSzasPVgy74UudcZ2' ? <ManageNewsButton /> : null}
                     <TouchableOpacity style={{ ...styles.button, backgroundColor: darkmode ? pureBlack : pureWhite }} activeOpacity={0.7} onPress={() => handleLogout()}>
                         <Text style={{ ...styles.buttonText, color: darkmode ? pureWhite : pureBlack }}>LOGOUT</Text>
                     </TouchableOpacity>
-                    {auth.currentUser.uid === 'ZERdxxCRYGhdSzasPVgy74UudcZ2' ? <ManageNewsButton /> : null}
                 </View>
             </View>
         </View>
