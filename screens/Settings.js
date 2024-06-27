@@ -6,8 +6,10 @@ import SettingsComponent from '../components/Settings'
 import { auth, database } from '../database';
 import ChangePassword from '../components/ChangePassword';
 
-export default function Settings({ navigation }) {
-    const [darkmode, setDarkmode] = useState(false)
+export default function Settings({ route, navigation }) {
+    const { defaultMode } = route.params
+
+    const [darkmode, setDarkmode] = useState(defaultMode)
 
     useEffect(() => {
         setInterval(async () => {

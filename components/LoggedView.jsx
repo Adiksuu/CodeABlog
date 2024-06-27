@@ -31,7 +31,7 @@ export default function LoggedView({ darkmode, setDarkmode }) {
     };
 
     const handleOpenSettings = () => {
-        navigation.navigate("Settings")
+        navigation.navigate("Settings", { defaultMode: darkmode })
     }
 
     return (
