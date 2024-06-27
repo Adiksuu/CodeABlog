@@ -1,8 +1,9 @@
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
 import React from 'react'
 import { auth } from '../database'
-import { pureBlack, pureWhite } from '../utility/colors'
+import { black, pureBlack, pureWhite, white } from '../utility/colors'
 import { useNavigation } from "@react-navigation/native";
+import { FontAwesome6 } from '@expo/vector-icons';
 
 export default function LoggedView({ darkmode, setDarkmode }) {
     const navigation = useNavigation()
@@ -14,14 +15,21 @@ export default function LoggedView({ darkmode, setDarkmode }) {
     function ManageNewsButton() {
         return (
             <TouchableOpacity style={{ ...styles.button, backgroundColor: darkmode ? pureBlack : pureWhite }} activeOpacity={0.7} onPress={() => handleOpenLink()}>
-                <Text style={{ ...styles.buttonText, color: darkmode ? pureWhite : pureBlack }}>MANAGE THE NEWS</Text>
+                <Text style={{ ...styles.buttonText, color: darkmode ? pureWhite : pureBlack }}><FontAwesome6 name="newspaper" ize={16} color={darkmode ? white : black} /> MANAGE THE NEWS</Text>
             </TouchableOpacity>
         )
     }
     function ManageSettingsButton() {
         return (
             <TouchableOpacity style={{ ...styles.button, backgroundColor: darkmode ? pureBlack : pureWhite }} activeOpacity={0.7} onPress={() => handleOpenSettings()}>
-                <Text style={{ ...styles.buttonText, color: darkmode ? pureWhite : pureBlack }}>SETTINGS</Text>
+                <Text style={{ ...styles.buttonText, color: darkmode ? pureWhite : pureBlack }}><FontAwesome6 name="gear" size={16} color={darkmode ? white : black} /> SETTINGS</Text>
+            </TouchableOpacity>
+        )
+    }
+    function DisplayAnalyticsButton() {
+        return (
+            <TouchableOpacity style={{ ...styles.button, backgroundColor: darkmode ? pureBlack : pureWhite }} activeOpacity={0.7} onPress={() => handleOpenAnalytics()}>
+                <Text style={{ ...styles.buttonText, color: darkmode ? pureWhite : pureBlack }}><FontAwesome6 name="chart-simple" size={16} color={darkmode ? white : black} /> ANALYTICS</Text>
             </TouchableOpacity>
         )
     }
@@ -34,6 +42,10 @@ export default function LoggedView({ darkmode, setDarkmode }) {
         navigation.navigate("Settings", { defaultMode: darkmode })
     }
 
+    const handleOpenAnalytics = () => {
+        navigation.navigate("Analytics", { darkmode: darkmode })
+    }
+
     return (
         <View>
             <View style={styles.textContainer}>
@@ -44,8 +56,9 @@ export default function LoggedView({ darkmode, setDarkmode }) {
                 <View style={{ gap: 8 }}>
                     <ManageSettingsButton />
                     {auth.currentUser && auth.currentUser.uid === 'ZERdxxCRYGhdSzasPVgy74UudcZ2' ? <ManageNewsButton /> : null}
+                    {auth.currentUser && auth.currentUser.uid === 'ZERdxxCRYGhdSzasPVgy74UudcZ2' ? <DisplayAnalyticsButton /> : null}
                     <TouchableOpacity style={{ ...styles.button, backgroundColor: darkmode ? pureBlack : pureWhite }} activeOpacity={0.7} onPress={() => handleLogout()}>
-                        <Text style={{ ...styles.buttonText, color: darkmode ? pureWhite : pureBlack }}>LOGOUT</Text>
+                        <Text style={{ ...styles.buttonText, color: darkmode ? pureWhite : pureBlack }}><FontAwesome6 name="right-from-bracket" size={16} color={darkmode ? white : black} /> LOGOUT</Text>
                     </TouchableOpacity>
                 </View>
             </View>

@@ -15,6 +15,7 @@ import NewVersionPopup from '../components/NewVersionPopup';
 import { currentVersion } from '../utility/versionCheck';
 import NewsUploader from './NewsUploader';
 import Settings from './Settings';
+import Analytics from './Analytics';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -67,7 +68,8 @@ export default function Navigator() {
             name: "ProfileTab",
             stack: createStack({ name: "Profile", component: Profile }, [
                 { name: "NewsUploader", component: NewsUploader },
-                { name: "Settings", component: Settings }
+                { name: "Settings", component: Settings },
+                { name: "Analytics", component: Analytics }
             ]),
             icon: { name: "user", component: FontAwesome }
         }
