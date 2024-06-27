@@ -4,6 +4,7 @@ import { FontAwesome6 } from '@expo/vector-icons'
 import { black, pureBlack, pureWhite, white } from '../utility/colors';
 import { useFocusEffect } from '@react-navigation/native';
 import { database } from '../database';
+import CardOthers from './CardOthers';
 
 export default function CardDetails({ card, darkmode }) {
     const handleOpenLink = () => {
@@ -30,8 +31,9 @@ export default function CardDetails({ card, darkmode }) {
             <View>
                 <Text style={{...styles.cardDescription, backgroundColor: darkmode ? pureBlack : pureWhite, color: darkmode ? pureWhite : pureBlack}}>{card.largeDescription}</Text>
             </View>
+            <CardOthers darkmode={darkmode} card={card} />
             <View style={styles.cardLinks}>
-                <TouchableOpacity style={{...styles.iconCircle, backgroundColor: darkmode ? pureBlack : pureWhite}} activeOpacity={0.7} onPress={() => handleOpenLink(card.description)}>
+                <TouchableOpacity style={{...styles.iconCircle, backgroundColor: darkmode ? pureBlack : pureWhite}} activeOpacity={0.7} onPress={() => handleOpenLink()}>
                     <FontAwesome6 name={"globe"} size={16} color={darkmode ? pureWhite : pureBlack} />
                     <Text style={{...styles.linkName, color: darkmode ? pureWhite : pureBlack}}>Check Project</Text>
                 </TouchableOpacity>
