@@ -24,7 +24,9 @@ export default function Comments({ route, navigation }) {
         const comment = {
           name: childSnapshot.val().name,
           text: childSnapshot.val().text,
-          date: childSnapshot.val().date
+          date: childSnapshot.val().date,
+          id: childSnapshot.val().id,
+          uid: childSnapshot.val().uid
         };
         commentsArray.push(comment);
       });
@@ -36,14 +38,17 @@ export default function Comments({ route, navigation }) {
     if (text.trim() == '') return
 
     const date = new Date()
+    const ID = Math.floor(Math.random() * 999999)
 
     const data = {
       name: (await database.ref(`users/${auth.currentUser.uid}/`).once('value')).val().username,
       text: text,
-      date: `${date.getDate().toString().padStart(2, '0')}.${(date.getMonth() + 1).toString().padStart(2, '0')}.${date.getFullYear()}`
+      date: `${date.getDate().toString().padStart(2, '0')}.${(date.getMonth() + 1).toString().padStart(2, '0')}.${date.getFullYear()}`,
+      id: ID,
+      uid: auth.currentUser.uid
     }
 
-    await database.ref(`projects/${id}/comments/comment_${Math.floor(Math.random() * 999999)}`).set(data)
+    await database.ref(`projects/${id}/comments/comment_${ID}`).set(data)
     setCommentText('')
   }
 
@@ -51,7 +56,7 @@ export default function Comments({ route, navigation }) {
     <View style={{ flex: 1, backgroundColor: darkmode ? black : white }}>
       <Header navigation={navigation} darkmode={darkmode} text={"Comments"} />
       <ScrollView style={styles.content}>
-        <View style={styles.comments}>{comments.length > 0 ? comments.map((card, key) => <Comment key={key} card={card} darkmode={darkmode} />) : <NoCommentsFound darkmode={darkmode} />}</View>
+        <View style={styles.comments}>{comments.length > 0 ? comments.map((card, key) => <Comment key={key} card={card} darkmode={darkmode} projectID={id} />) : <NoCommentsFound darkmode={darkmode} />}</View>
       </ScrollView>
       <View style={{ ...styles.inputView, backgroundColor: darkmode ? black : white }}>
         <TextInput placeholder='Create comment' placeholderTextColor={darkmode ? pureWhite : pureBlack} value={commentText} onChangeText={(e) => setCommentText(e)} style={{ ...styles.input, backgroundColor: darkmode ? pureBlack : pureWhite, color: darkmode ? white : black }} />
