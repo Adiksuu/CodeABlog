@@ -2,11 +2,24 @@ import { View, Text, StyleSheet, TouchableOpacity, Linking } from 'react-native'
 import React from 'react'
 import { FontAwesome6 } from '@expo/vector-icons'
 import { black, pureBlack, pureWhite, white } from '../utility/colors';
+import { useFocusEffect } from '@react-navigation/native';
+import { database } from '../database';
 
 export default function CardDetails({ card, darkmode }) {
     const handleOpenLink = () => {
         Linking.openURL(card.description)
     };
+
+    const handleAddView = async () => {
+        const snapshot = await database.ref(`projects/${card.id}/`).once('value')
+        const views = snapshot.val().views || 0
+
+        database.ref(`projects/${card.id}/`).update({ views: views + 1 })
+    }
+
+    useFocusEffect(() => {
+        handleAddView()
+    })
 
     return (
         <>
