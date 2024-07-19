@@ -9,8 +9,13 @@ export default function LoginForm({ darkmode }) {
     const [username, setUsername] = useState('')
     const [signIn, setSignIn] = useState(true)
 
+    const [inLogin, setInLogin] = useState(false)
+
     const handleLogin = () => {
-        auth.signInWithEmailAndPassword(email, password).catch(error => {
+        setInLogin(true)
+        auth.signInWithEmailAndPassword(email, password).then(() => {
+            setInLogin(false)
+        }).catch(error => {
             console.log('Something went wrong with User login', error)
         })
     }
@@ -49,8 +54,8 @@ export default function LoginForm({ darkmode }) {
                     <TextInput placeholder='Password' placeholderTextColor={darkmode ? pureWhite : pureBlack} secureTextEntry value={password} onChangeText={(e) => { setPassword(e) }} style={{ ...styles.input, backgroundColor: darkmode ? black : white, color: darkmode ? pureWhite : pureBlack }} />
                 </View>
                 <View style={styles.inputView}>
-                    <TouchableOpacity style={{ ...styles.inputButton, backgroundColor: darkmode ? black : white }} activeOpacity={0.7} onPress={() => handleLogin()}>
-                        <Text style={{ ...styles.inputButtonText, color: darkmode ? pureWhite : pureBlack }}>Login</Text>
+                    <TouchableOpacity style={{ ...styles.inputButton, backgroundColor: darkmode ? black : white }} disabled={inLogin} activeOpacity={0.7} onPress={() => handleLogin()}>
+                        <Text style={{ ...styles.inputButtonText, color: darkmode ? pureWhite : pureBlack }}>{inLogin ? "Wait..." : "Login"}</Text>
                     </TouchableOpacity>
                 </View>
                 <View style={styles.inputView}>
